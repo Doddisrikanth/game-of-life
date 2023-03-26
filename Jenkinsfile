@@ -15,7 +15,7 @@ pipeline {
                 jdk 'JAVA_8'
             }
             steps {
-                sh "Choice: ${params.MAVEN_GOAL}" 
+                sh echo "Choice: ${params.MAVEN_GOAL}" 
             }
         }
         stage('post build') {
