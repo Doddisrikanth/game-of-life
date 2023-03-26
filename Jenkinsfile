@@ -1,10 +1,7 @@
 pipeline {
     agent any
     parameters {
-        string(name: 'MVN_GOAL', defaultValue: 'package')
-    }
-    triggers{
-        pollSCM('* * * * *')
+        string(name: 'MAVEN_GOAL', defaultValue: 'package', description: 'Maven Goal')
     }
     stages {
         stage('vcs') {
@@ -15,7 +12,10 @@ pipeline {
         }
         stage('package') {
             steps {
-                sh 'export PATH="/usr/lib/jvm/java-1.8.0-openjdk-amd64/bin:$PATH", "mvn ${params.MAVEN_GOAL}"'
+                sh 'export PATH="/usr/lib/jvm/java-1.8.0-openjdk-amd64/bin:$PATH"'
+            }
+            steps {
+                sh "mvn ${params.MAVEN_GOAL}"
             }
         }
         stage('post build') {
