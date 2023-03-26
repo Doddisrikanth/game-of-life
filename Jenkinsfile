@@ -9,11 +9,13 @@ pipeline {
                 git url: 'https://github.com/khajadevopsmarch23/game-of-life.git',
                     branch: 'sri'
             }
-            steps {
-                sh 'export PATH="/usr/lib/jvm/java-1.8.0-openjdk-amd64/bin:$PATH"'
+        }
+        stage('package') {
+            tools {
+                jdk 'JAVA_8'
             }
             steps {
-                sh "mvn ${params.MAVEN_GOAL}"
+                sh 'mvn package'
             }
         }
         stage('post build') {
