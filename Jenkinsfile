@@ -1,7 +1,7 @@
 pipeline {
     agent any
     parameters {
-        string(name: 'MAVEN_GOAL', defaultValue: 'package', description: 'Maven Goal')
+        choice(name: 'MAVEN_GOAL', choices: ['compile', 'package'], description: 'MAVEN_GOAL')
     }
     stages {
         stage('vcs') {
@@ -15,7 +15,7 @@ pipeline {
                 jdk 'JAVA_8'
             }
             steps {
-                sh "mvn ${params.MAVEN_GOAL}" 
+                sh "mvn ${params.MAVEN_GOAL}"" 
             }
         }
         stage('post build') {
